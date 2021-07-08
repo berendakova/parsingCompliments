@@ -12,9 +12,9 @@ _Методы API_
 *  #### Получение всех комплиментов в категории
      - GET /api/compliments/category/{categoryId}
 *  #### Присвоение комплимента к категории
-     - GET /api/compliment/{complimentId}/category/{categoryId}
+     - GET /api/compliments/{complimentId}/category/{categoryId}
 *  #### Удаление комлимента
-     - DELETE /api/compliment/{complimentId}    
+     - DELETE /api/compliments/{complimentId}    
 *  #### Создание категории
      - POST /api/categories/create
      - параметры name
