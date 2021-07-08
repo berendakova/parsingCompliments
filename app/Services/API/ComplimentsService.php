@@ -15,15 +15,14 @@ class ComplimentsService
     {
         $compliment = new Compliment();
         $compliment->text = $text;
+        $compliment->save();
         if (isset($categoryId)) {
             $compliment->categories()->attach($categoryId);
         }
-        $compliment->save();
-
         return $compliment;
     }
 
-    public function getRandomByCategory(int $categoryId, int $count = 1): Collection
+    public function getRandomByCategory(int $categoryId, ?int $count = 1): Collection
     {
         return DB::table('compliments')
             ->join('compliments_categories_pivot', 'compliments.id', '=', 'compliment_id')
@@ -52,12 +51,10 @@ class ComplimentsService
         Compliment::findOrFail($id)->delete();
     }
 
-    public function attachComplimentToCategories(int $complimentId, array $categoryIds): void
+    public function attachComplimentToCategories(int $complimentId, int $categoryId): void
     {
-        foreach ($categoryIds as $categoryId) {
-            Category::findOrFail($categoryId);
-            Compliment::findOrFail($complimentId)->categories()->attach($categoryId);
-        }
+        Category::findOrFail($categoryId);
+        Compliment::findOrFail($complimentId)->categories()->attach($categoryId);
     }
 
 }
