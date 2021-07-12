@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\ComplimentsController;
+use App\Http\Controllers\ParserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,13 +16,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth:api')->get(
+    '/user',
+    function (Request $request) {
+        return $request->user();
+    }
+);
+Route::prefix('/compliments')->group(
+    function () {
+        Route::post('/create', [ComplimentsController::class, 'create']);
+        Route::post('/category/{categoryId}/rand', [ComplimentsController::class, 'randByCategory']);
+        Route::delete('/{complimentId}', [ComplimentsController::class, 'delete']);
+        Route::get('/', [ComplimentsController::class, 'list']);
+        Route::get('/category/{categoryId}', [ComplimentsController::class, 'listByCategory']);
+        Route::get('/{complimentId}/category/{categoryId}', [ComplimentsController::class, 'attachToCategory']);
+    }
+);
 
-Route::post('/compliments/create', [ComplimentsController::class, 'create']);
-Route::post('/compliments/category/{categoryId}/rand', [ComplimentsController::class, 'randByCategory']);
-Route::delete('/compliments/{complimentId}', [ComplimentsController::class, 'delete']);
-Route::get('/compliments', [ComplimentsController::class, 'list']);
-Route::get('/compliments/category/{categoryId}', [ComplimentsController::class, 'listByCategory']);
-Route::get('/compliments/{complimentId}/category/{categoryId}', [ComplimentsController::class, 'attachToCategory']);
+Route::get('/parser', [ParserController::class, 'parse']);
