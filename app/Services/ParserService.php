@@ -7,7 +7,6 @@ namespace App\Services;
 use App\Models\Category;
 use App\Models\Compliment;
 use DOMDocument;
-use Illuminate\Database\Eloquent\Model;
 
 class ParserService
 {

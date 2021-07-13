@@ -54,4 +54,10 @@ class ComplimentsController
         $this->complimentsService->attachComplimentToCategories($complimentId, $categoryId);
     }
 
+    public function getRand(): JsonResponse
+    {
+        $compliment = $this->complimentsService->rand();
+        return response()->json($compliment);
+    }
+
 }

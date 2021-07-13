@@ -28,7 +28,7 @@ class ComplimentsService
             ->join('compliments_categories_pivot', 'compliments.id', '=', 'compliment_id')
             ->where('compliments_categories_pivot.category_id', '=', $categoryId)
             ->inRandomOrder()
-            ->limit($count)
+            ->limit(1)
             ->get();
     }
 
@@ -57,4 +57,8 @@ class ComplimentsService
         Compliment::findOrFail($complimentId)->categories()->attach($categoryId);
     }
 
+    public function rand(): Compliment
+    {
+        return Compliment::inRandomOrder()->first();
+    }
 }

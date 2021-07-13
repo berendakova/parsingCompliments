@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ComplimentsController;
 use App\Http\Controllers\ParserController;
 use Illuminate\Http\Request;
@@ -25,12 +26,14 @@ Route::middleware('auth:api')->get(
 Route::prefix('/compliments')->group(
     function () {
         Route::post('/create', [ComplimentsController::class, 'create']);
-        Route::post('/category/{categoryId}/rand', [ComplimentsController::class, 'randByCategory']);
+        Route::get('/category/{categoryId}/rand', [ComplimentsController::class, 'randByCategory']);
         Route::delete('/{complimentId}', [ComplimentsController::class, 'delete']);
         Route::get('/', [ComplimentsController::class, 'list']);
         Route::get('/category/{categoryId}', [ComplimentsController::class, 'listByCategory']);
         Route::get('/{complimentId}/category/{categoryId}', [ComplimentsController::class, 'attachToCategory']);
+        Route::get('/random', [ComplimentsController::class, 'getRand']);
     }
 );
-
+Route::get('/categories', [CategoryController::class, 'list']);
+Route::get('/categories/exist/{categoryId}', [CategoryController::class, 'isExist']);
 Route::get('/parser', [ParserController::class, 'parse']);

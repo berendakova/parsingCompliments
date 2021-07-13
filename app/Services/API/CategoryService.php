@@ -29,4 +29,13 @@ class CategoryService
         return Category::all();
     }
 
+    public function isExistCategory(int $categoryId): bool
+    {
+        $category = Category::findOrFail($categoryId);
+        if($category === null) {
+            return false;
+        }
+        return true;
+    }
+
 }
