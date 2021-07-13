@@ -27,4 +27,5 @@ _Методы API_
      - DELETE /api/categories/{categoryId}
 *  #### Получение списка категорий
      -  GET /api/categories
-
+* #### Проверка существования категории по ID
+     -  GET /api/categories/exist/{categoryId}
